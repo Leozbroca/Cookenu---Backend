@@ -17,6 +17,7 @@ export interface user {
 }
 
 export interface recipe {
+  recipe_img: string;
   title: string;
   description: string;
   creation_date: string;
@@ -36,6 +37,7 @@ export interface userBasic {
 
 export interface feed {
   id: number;
+  recipe_img: string;
   title: string;
   description: string;
   createdAt: string;

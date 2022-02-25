@@ -142,6 +142,7 @@ class UserBussiness {
         
         recipes.push({
           id: obj.id,
+          recipe_img:obj.recipe_img,
           title: obj.title,
           description: obj.description,
           createdAt: creation_date,

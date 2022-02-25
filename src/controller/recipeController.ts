@@ -6,12 +6,13 @@ class RecipeController {
   async createRecipe(req: Request, res: Response): Promise<void> {
     try {
       const token = req.headers.authorization as string;
-      const { title, description } = req.body;
+      const { title, description, recipe_img } = req.body;
 
       const message = await recipeBussiness.createRecipe(
         token,
         title,
-        description
+        description,
+        recipe_img
       );
 
       res.status(201).send({ message });
@@ -45,13 +46,14 @@ class RecipeController {
     try {
       const token = req.headers.authorization as string;
       const recipe_id = req.params.id;
-      const { title, description } = req.body;
+      const { title, description, recipe_img } = req.body;
 
       const message = await recipeBussiness.editRecipe(
         token,
         recipe_id,
         title,
-        description
+        description,
+        recipe_img
       );
 
       res.status(200).send({ message });
