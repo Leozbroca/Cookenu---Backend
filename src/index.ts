@@ -1,31 +1,29 @@
 import app from "./app";
-import createUser from './endpoints/signup'
-import login from "./endpoints/login"
-import getProfile from "./endpoints/profileInfo";
-import createRecipe from "./endpoints/createRecipe"
-import getOtherProfile from "./endpoints/otherProfileInfo"
-import getRecipe from "./endpoints/getRecipe"
-import followUser from "./endpoints/followUser";
-import unfollowUser from "./endpoints/unfollowUser"
-import getFeed from "./endpoints/getFeed";
-import editRecipe from "./endpoints/editRecipe";
-import deleteRecipe from "./endpoints/deleteRecipe";
-import deleteUser from "./endpoints/deleteUser";
-import { forgotEmail } from "./endpoints/forgotEmail";
+import userController from "./controller/userController"
+import recipeController from "./controller/recipeController"
+import followController from "./controller/followController"
 
-app.post("/signup", createUser)
-app.post("/login", login)
-app.get("/user/feed", getFeed)
-app.get("/user/profile", getProfile)
-app.post("/recipe", createRecipe)
-app.post("/user/follow", followUser)
-app.delete("/user/unfollow", unfollowUser)
-app.put("/newPassword", forgotEmail)
-app.get("/user/:id", getOtherProfile)
-app.get("/recipe/:id", getRecipe)
-app.put("/recipe/:id/edit", editRecipe)
-app.delete("/recipe/:id/delete", deleteRecipe)
-app.delete("/user/:id/delete", deleteUser)
+// Requisições de usuários
+app.post("/signup", userController.signup)
+app.post("/login", userController.login)
+app.get("/user/feed", userController.getFeed)
+app.get("/user/profile",userController.getProfile)
+app.put("/newPassword", userController.forgotPassword)
+app.get("/user/:id", userController.getOtherProfile)
+app.delete("/user/:id/delete", userController.deleteUser)
+
+// Requisições de receita
+app.post("/recipe", recipeController.createRecipe)
+app.get("/recipe/:id", recipeController.getRecipe)
+app.put("/recipe/:id/edit", recipeController.editRecipe)
+app.delete("/recipe/:id/delete", recipeController.deleteRecipe)
+
+// Requisições de seguidores
+app.post("/user/follow", followController.followUser)
+app.delete("/user/unfollow", followController.unfollowUser)
+
+
+
 
 
 

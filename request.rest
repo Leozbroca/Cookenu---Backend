@@ -1,4 +1,4 @@
-### Cadastro de usuário
+### Cadastro de usuário OK
 POST http://localhost:3003/signup
 Content-Type: application/json
 
@@ -14,8 +14,8 @@ POST http://localhost:3003/login
 Content-Type: application/json
 
 {
-    "email":"leozbroca@gmail.com",
-    "password":"wyrmheroblade"
+    "email":"",
+    "password":""
 }
 
 ### Pegar informações do próprio perfil
@@ -23,7 +23,7 @@ GET http://localhost:3003/user/profile
 Content-Type: application/json
 Authorization: 
 
-### Pegar informações do perfil de outro usuário (Somente admins)
+### Pegar informações do perfil de outro usuário OK
 GET http://localhost:3003/user/:id
 Content-Type: application/json
 Authorization: 
@@ -39,7 +39,7 @@ Authorization:
 }
 
 ### Pegar informações da receita
-GET http://localhost:3003/recipe/:id
+GET http://localhost:3003/recipe/:id 
 Content-Type: application/json
 Authorization: 
 
@@ -49,7 +49,7 @@ Content-Type: application/json
 Authorization: 
 
 {
-    "userToFollowId":"f0be1d2e-37d7-461b-83b8-1728454ab968"
+    "userToFollowId":""
 }
 
 ### Deixar de seguir usuário
@@ -61,7 +61,7 @@ Authorization:
     "userToUnfollowId":""
 }
 
-### Pegar feed de receitas 
+### Pegar feed de receitas
 GET http://localhost:3003/user/feed
 Content-Type: application/json
 Authorization: 
@@ -76,12 +76,12 @@ Authorization:
     "description": ""
 }
 
-### Deletar receita 
+### Deletar receita
 DELETE http://localhost:3003/recipe/:id/delete
 Content-Type: application/json
 Authorization: 
 
-### Deletar usuário 
+### Deletar usuário
 DELETE http://localhost:3003/user/:id/delete
 Content-Type: application/json
 Authorization: 
