@@ -35,7 +35,8 @@ Authorization:
 
 {
     "title": "",
-    "description": ""
+    "description": "",
+    "recipe_img":""
 }
 
 ### Pegar informações da receita
@@ -73,7 +74,8 @@ Authorization:
 
 {
     "title":"",
-    "description": ""
+    "description": "",
+    "recipe_img":""
 }
 
 ### Deletar receita
@@ -84,12 +86,12 @@ Authorization:
 ### Deletar usuário
 DELETE http://localhost:3003/user/:id/delete
 Content-Type: application/json
-Authorization: 
+Authorization:
 
 ### Esqueceu sua senha
 PUT http://localhost:3003/newPassword
 Content-Type: application/json
 
 {
-    "email": ""
+    "email": "leozbroca@gmail.com"
 }

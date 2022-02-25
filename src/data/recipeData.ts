@@ -12,7 +12,8 @@ class RecipeDatabase extends BaseDatabase {
           title: newRecipe.title,
           description: newRecipe.description,
           creation_date: newRecipe.creation_date,
-          creator_id: newRecipe.creator_id
+          creator_id: newRecipe.creator_id,
+          recipe_img: newRecipe.recipe_img
         })
         .into(RecipeDatabase.TABLE_NAME);
     } catch (error: any) {
@@ -36,13 +37,15 @@ class RecipeDatabase extends BaseDatabase {
   public async editRecipe(
     id: string,
     title: string,
-    description: string
+    description: string,
+    recipe_img: string
   ): Promise<void> {
     try {
       await this.getConnection()
         .update({
           title: title,
           description: description,
+          recipe_img: recipe_img
         })
         .from(RecipeDatabase.TABLE_NAME)
         .where({ id });

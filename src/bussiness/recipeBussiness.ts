@@ -8,7 +8,7 @@ import { RecipeNotFound } from "../error/notFound";
 import { RecipeExists, Editing, Deleting } from "../error/generalError";
 
 class RecipeBussiness {
-  async createRecipe(token: string, title: string, description: string) {
+  async createRecipe(token: string, title: string, description: string, recipe_img: string) {
     if (!token) {
       throw new MissingToken()
     }
@@ -16,14 +16,12 @@ class RecipeBussiness {
     const authenticationData = authenticator.getTokenData(token);
     const creator_id = authenticationData.id;
 
-    if (!title || !description) {
-      // res.statusCode = 422;
+    if (!title || !description || !recipe_img) {
       throw new MissingFields()
     }
 
     const [recipe] = await recipeDatabase.searchRecipeBytitle(title);
     if (recipe) {
-      // res.statusCode = 409;
       throw new RecipeExists()
     }
 
@@ -36,6 +34,7 @@ class RecipeBussiness {
       description,
       creation_date,
       creator_id,
+      recipe_img
     };
 
     recipeDatabase.createRecipe(newRecipe);
@@ -62,6 +61,7 @@ class RecipeBussiness {
 
     const newRecipe = {
       id: recipe.id,
+      recipe_img: recipe.recipe_img,
       title: recipe.title,
       description: recipe.description,
       creation_date: creation_date,
@@ -75,7 +75,8 @@ class RecipeBussiness {
     token: string,
     recipe_id: string,
     title: string,
-    description: string
+    description: string,
+    recipe_img: string
   ) {
     if (!token) {
       throw new MissingToken()
@@ -94,11 +95,11 @@ class RecipeBussiness {
       }
     }
 
-    if (!title || !description) {
+    if (!title || !description || !recipe_img) {
       throw new MissingFields()
     }
 
-    await recipeDatabase.editRecipe(recipe_id, title, description);
+    await recipeDatabase.editRecipe(recipe_id, title, description, recipe_img);
     return "Recipe edited successfully!";
   }
 
