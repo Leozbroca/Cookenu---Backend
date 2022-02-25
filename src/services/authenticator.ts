@@ -1,5 +1,6 @@
 import { JwtPayload, sign, verify } from "jsonwebtoken";
 import { authenticationData } from "../types";
+import { InvalidToken } from "../error/missingToken";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -23,9 +24,8 @@ class Authenticator {
         id: tokenData.id,
         role: tokenData.role,
       };
-    } catch (error) {
-      console.log(error);
-      throw new Error("Falha no sistema");
+    } catch (error:any) {
+      throw new InvalidToken()
     }
   };
 }

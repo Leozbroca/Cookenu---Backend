@@ -2,32 +2,29 @@ import authenticator from "../services/authenticator";
 import { recipe } from "../types";
 import recipeDatabase from "../data/recipeData";
 import userDatabase from "../data/userData";
+import { MissingFields } from "../error/missingFields";
+import { MissingToken } from "../error/missingToken";
+import { RecipeNotFound } from "../error/notFound";
+import { RecipeExists, Editing, Deleting } from "../error/generalError";
 
 class RecipeBussiness {
   async createRecipe(token: string, title: string, description: string) {
     if (!token) {
-      // res.statusCode = 401;
-      // res.statusMessage = "token invalido ou nao passado no headers";
-      throw new Error("token invalido ou nao passado no headers");
+      throw new MissingToken()
     }
 
     const authenticationData = authenticator.getTokenData(token);
     const creator_id = authenticationData.id;
 
-    if (!title) {
+    if (!title || !description) {
       // res.statusCode = 422;
-      throw new Error("Preencha o campo 'title'");
-    }
-
-    if (!description) {
-      // res.statusCode = 422;
-      throw new Error("Preencha o campo 'description'");
+      throw new MissingFields()
     }
 
     const [recipe] = await recipeDatabase.searchRecipeBytitle(title);
     if (recipe) {
       // res.statusCode = 409;
-      throw new Error("Receita já cadastrada");
+      throw new RecipeExists()
     }
 
     const data: Date = new Date();
@@ -48,16 +45,14 @@ class RecipeBussiness {
 
   async getRecipe(token: string, recipe_id: string) {
     if (!token) {
-      // res.statusCode = 401;
-      // res.statusMessage = "token invalido ou nao passado no headers";
-      throw new Error("Invalid Token");
+      throw new MissingToken()
     }
 
     authenticator.getTokenData(token);
 
     const [recipe] = await recipeDatabase.searchRecipeById(recipe_id);
     if (!recipe) {
-      throw new Error("Recipe not found!");
+      throw new RecipeNotFound()
     }
 
     const data = recipe.creation_date;
@@ -83,26 +78,24 @@ class RecipeBussiness {
     description: string
   ) {
     if (!token) {
-      // res.statusCode = 401;
-      // res.statusMessage = "token invalido ou nao passado no headers";
-      throw new Error("Invalid Token");
+      throw new MissingToken()
     }
 
     const authenticationData = authenticator.getTokenData(token);
 
     const [recipe] = await recipeDatabase.searchRecipeById(recipe_id);
     if (!recipe) {
-      throw new Error("Recipe not found");
+      throw new RecipeNotFound()
     }
 
     if (authenticationData.role !== "ADMIN") {
       if (recipe.creator_id !== authenticationData.id) {
-        throw new Error("You can't edit this recipe");
+        throw new Editing()
       }
     }
 
     if (!title || !description) {
-      throw new Error("Empty inputs: 'title' or 'description'");
+      throw new MissingFields()
     }
 
     await recipeDatabase.editRecipe(recipe_id, title, description);
@@ -111,21 +104,19 @@ class RecipeBussiness {
 
   async deleteRecipe(token: string, recipe_id: string) {
     if (!token) {
-      // res.statusCode = 401;
-      // res.statusMessage = "token invalido ou nao passado no headers";
-      throw new Error("Invalid Token");
+      throw new MissingToken()
     }
 
     const authenticationData = authenticator.getTokenData(token);
 
     const [recipe] = await recipeDatabase.searchRecipeById(recipe_id);
     if (!recipe) {
-      throw new Error("Recipe not found");
+      throw new RecipeNotFound()
     }
 
     if (authenticationData.role !== "ADMIN") {
       if (recipe.creator_id !== authenticationData.id) {
-        throw new Error("You can't delete this recipe");
+        throw new Deleting()
       }
     }
 
