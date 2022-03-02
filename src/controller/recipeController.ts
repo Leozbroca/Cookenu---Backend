@@ -42,6 +42,22 @@ class RecipeController {
     }
   }
 
+  async getAllRecipes(req: Request, res: Response): Promise<void> {
+    try {
+      const token = req.headers.authorization as string;
+
+      const result = await recipeBussiness.getAllRecipes(token);
+      
+      res.status(200).send({ result });
+    } catch (error: any) {
+      res.status(400).send({
+        message: error.message,
+      });
+    } finally {
+      await BaseDatabase.destroyConnection();
+    }
+  }
+
   async editRecipe(req: Request, res: Response): Promise<void> {
     try {
       const token = req.headers.authorization as string;

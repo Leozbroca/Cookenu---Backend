@@ -34,6 +34,18 @@ class RecipeDatabase extends BaseDatabase {
     }
   }
 
+  public async getAllRecipes(): Promise<any> {
+    try {
+      const result = await this.getConnection()
+        .select()
+        .from(RecipeDatabase.TABLE_NAME)
+      console.log(result)
+      return result;
+    } catch (error: any) {
+      throw new Error(error.sqlMessage || error.message);
+    }
+  }
+
   public async editRecipe(
     id: string,
     title: string,

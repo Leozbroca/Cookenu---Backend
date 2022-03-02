@@ -4,7 +4,7 @@ import recipeDatabase from "../data/recipeData";
 import userDatabase from "../data/userData";
 import { MissingFields } from "../error/missingFields";
 import { MissingToken } from "../error/missingToken";
-import { RecipeNotFound } from "../error/notFound";
+import { RecipeNotFound, RecipesNotFound } from "../error/notFound";
 import { RecipeExists, Editing, Deleting } from "../error/generalError";
 
 class RecipeBussiness {
@@ -69,6 +69,21 @@ class RecipeBussiness {
     };
  
     return newRecipe;
+  }
+
+  async getAllRecipes(token: string) {
+    if (!token) {
+      throw new MissingToken()
+    }
+
+    authenticator.getTokenData(token);
+
+    const recipes = await recipeDatabase.getAllRecipes();
+    if (!recipes) {
+      throw new RecipesNotFound()
+    }
+ 
+    return recipes;
   }
 
   async editRecipe(

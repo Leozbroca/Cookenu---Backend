@@ -14,6 +14,7 @@ app.delete("/user/:id/delete", userController.deleteUser)
 
 // Requisições de receita
 app.post("/recipe", recipeController.createRecipe)
+app.get("/allrecipes", recipeController.getAllRecipes)
 app.get("/recipe/:id", recipeController.getRecipe)
 app.put("/recipe/:id/edit", recipeController.editRecipe)
 app.delete("/recipe/:id/delete", recipeController.deleteRecipe)

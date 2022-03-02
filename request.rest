@@ -14,8 +14,8 @@ POST http://localhost:3003/login
 Content-Type: application/json
 
 {
-    "email":"",
-    "password":""
+    "email":"felipe@gmail.com",
+    "password":"fe123"
 }
 
 ### Pegar informações do próprio perfil
@@ -43,6 +43,11 @@ Authorization:
 GET http://localhost:3003/recipe/:id
 Content-Type: application/json
 Authorization: 
+
+### Pegar informações de todas as receita
+GET http://localhost:3003/allrecipes
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUzMDEwNzY0LWEwYTAtNDA1Yy04YTc1LTE2MjhlNzYyY2Q5YSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY0NjIzNDk4NywiZXhwIjoxNjQ2MzIxMzg3fQ.8eaubSUK2Ei9laAPItTLzWVM5AB1yo82vNqhQ7CeIAw
 
 ### Seguir usuário
 POST http://localhost:3003/user/follow
