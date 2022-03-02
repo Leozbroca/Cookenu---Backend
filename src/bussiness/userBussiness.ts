@@ -9,17 +9,28 @@ import followDataBase from "../data/followData";
 import { MissingToken } from "../error/missingToken";
 import { MissingFields } from "../error/missingFields";
 import { UnauthorizedAcess } from "../error/unauthorizedAcess";
-import { InvalidCredentials } from "../error/invalidCredentials";
-import { UserNotFound, EmailNotFound } from "../error/notFound";
-import { EmailExists } from "../error/generalError";
+import { InvalidCredentials, InvalidEmail } from "../error/invalidCredentials";
+import { UserNotFound, EmailNotFound , UsersNotFound} from "../error/notFound";
+import { EmailExists, PasswordShort } from "../error/generalError";
 import transporter from "../services/transporter";
 
 dotenv.config();
 
 class UserBussiness {
   async signup(name: string, email: string, password: string, role: USER_ROLES) {
-    if (!name || !email || !password || !role) {
+    if (!name || !email || !password) {
       throw new MissingFields()
+    }
+
+    const verification = /^([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}$/
+    const ok = verification.exec(email)
+
+    if(!ok){
+      throw new InvalidEmail()
+    }
+
+    if(password.length < 6){
+      throw new PasswordShort()
     }
 
     const user = await userDatabase.searchProfileByEmail(email);
@@ -153,6 +164,21 @@ class UserBussiness {
     }
 
     return recipes;
+  }
+
+  async getAllUsers(token: string) {
+    if (!token) {
+      throw new MissingToken()
+    }
+
+    authenticator.getTokenData(token);
+
+    const users = await userDatabase.getAllUsers();
+    if(!users){
+      throw new UsersNotFound()
+    }
+
+    return users;
   }
 
   async forgotPassword(email: string) {

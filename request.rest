@@ -6,7 +6,7 @@ Content-Type: application/json
     "name":"",
     "email":"",
     "password":"",
-    "role": ""
+    "role":""
 }
 
 ### Login
@@ -14,8 +14,8 @@ POST http://localhost:3003/login
 Content-Type: application/json
 
 {
-    "email":"",
-    "password":""
+    "email":"felipe@gmail.com",
+    "password":"fe123"
 }
 
 ### Pegar informações do próprio perfil
@@ -27,6 +27,11 @@ Authorization:
 GET http://localhost:3003/user/:id
 Content-Type: application/json
 Authorization: 
+
+### Pegar informações de todos os usuário 
+GET http://localhost:3003/allusers
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUzMDEwNzY0LWEwYTAtNDA1Yy04YTc1LTE2MjhlNzYyY2Q5YSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY0NjI0MDg4NSwiZXhwIjoxNjQ2MzI3Mjg1fQ.v3orOIjCLOnBGBcFV52rWxWVbfDTjq9f5Per3ivwHzM
 
 ### Criando receita
 POST http://localhost:3003/recipe
@@ -41,6 +46,11 @@ Authorization:
 
 ### Pegar informações da receita
 GET http://localhost:3003/recipe/:id
+Content-Type: application/json
+Authorization: 
+
+### Pegar informações de todas as receita
+GET http://localhost:3003/allrecipes
 Content-Type: application/json
 Authorization: 
 
