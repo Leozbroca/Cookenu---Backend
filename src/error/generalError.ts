@@ -54,6 +54,11 @@ export class TryFollow extends BaseError {
     }
 }
 
+export class PasswordShort extends BaseError {
+    constructor(){
+        super("You need a stronger password, at least 6 digits" , 400);
+    }
+}
 
 
 
