@@ -93,6 +93,18 @@ class UserDatabase extends BaseDatabase {
       throw new Error(error.sqlMessage || error.message);
     }
   }
+  public async getAllUsers(): Promise<any> {
+    try {
+      const result = await this.getConnection()
+        .select()
+        .from(UserDatabase.TABLE_NAME)
+        .orderBy("name")
+
+      return result;
+    } catch (error: any) {
+      throw new Error(error.sqlMessage || error.message);
+    }
+  }
 }
 
 export default new UserDatabase();

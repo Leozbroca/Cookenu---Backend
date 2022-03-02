@@ -23,3 +23,9 @@ export class RecipesNotFound extends BaseError{
         super("Recipes not Found" , 404);
     }
 }
+
+export class UsersNotFound extends BaseError{
+    constructor(){
+        super("Users not Found" , 404);
+    }
+}

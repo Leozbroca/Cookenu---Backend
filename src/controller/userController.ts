@@ -103,6 +103,22 @@ class UserController {
     }
   }
 
+  async getAllUsers(req: Request, res: Response): Promise<void> {
+    try {
+      const token = req.headers.authorization as string;
+
+      const users = await userBussiness.getAllUsers(token);
+
+      res.status(200).send({ users });
+    } catch (error: any) {
+      res.status(400).send({
+        message: error.message,
+      });
+    } finally {
+      await BaseDatabase.destroyConnection();
+    }
+  }
+
   async forgotPassword(req: Request, res: Response): Promise<void> {
     try {
       const { email } = req.body;
