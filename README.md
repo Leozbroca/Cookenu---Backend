@@ -1,6 +1,6 @@
 # Projeto Back-end Cookenu  
 
-- <b>Documentação Postman</b> -> <a target="_blank">https://documenter.getpostman.com/view/18387499/UVkqqE7c#intro</a>
+- <b>Documentação Postman</b> -> <a href="https://documenter.getpostman.com/view/18387499/UVkqqE7c#intro" target="_blank">Documentação</a>
 - <b>Heroku</b> -> <a target="_blank">http://appcookenu.herokuapp.com/</a>
 
 ### Funcionalidades
