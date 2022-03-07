@@ -1,7 +1,7 @@
 # Projeto Back-end Cookenu  
 
-- Documentação Postman -> https://documenter.getpostman.com/view/18387499/UVkqqE7c#6978523c-6670-41d3-a898-f10fe4173a38
-- Heroku -> http://appcookenu.herokuapp.com/
+- <b>Documentação Postman</b> -> <a target="_blank">https://documenter.getpostman.com/view/18387499/UVkqqE7c#intro</a>
+- <b>Heroku</b> -> <a target="_blank">http://appcookenu.herokuapp.com/</a>
 
 ### Funcionalidades
 > - Cadastro de usuário
